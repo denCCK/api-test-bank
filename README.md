@@ -1,6 +1,6 @@
 ## api-test-bank - React + Vite
 
-React-приложение с использованием TypeScript, Redux и Bootstrap.  
+React-приложение с использованием TypeScript, Redux и Bootstrap для получения и фильтрации данных через публичное API JSONPlaceholder. 
 Приложение можно запускать локально для разработки или через Docker с помощью docker-compose.
 
 ---
@@ -18,6 +18,7 @@ React-приложение с использованием TypeScript, Redux и 
 1. Клонируем репозиторий:
 
 git clone https://github.com/denCCK/api-test-bank.git
+
 cd api-test-bank
 
 2. Устанавливаем зависимости:

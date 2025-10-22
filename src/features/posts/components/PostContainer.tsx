@@ -4,13 +4,13 @@ import PostList from "./PostList";
 import AddPostModal from "./AddPostModal";
 import PostModal from "./PostModal";
 import ScrollToTopButton from "./ScrollToTopButton";
-import { Post } from "../postTypes";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { fetchPosts } from "../postThunks";
 import Loader from "./Loader";
 import Toolbar from "./Toolbar";
 import { useInfiniteScroll } from "../../../app/hooks/useInfiniteScroll";
 import { usePosts } from "../../../app/hooks/usePosts";
+import { useFavoritesSync } from "../../../app/hooks/useFavoritesSync";
 
 export default function PostContainer() {
   const dispatch = useAppDispatch();
@@ -20,18 +20,25 @@ export default function PostContainer() {
     favorites,
     sort,
     filter,
-    addNewPost,
+    title,
+    setTitle,
+    body,
+    setBody,
+    showModal,
+    setShowModal,
+    showPostModal,
+    setShowPostModal,
+    selectedPost,
+    setSelectedPost,
+    handleAddPost,
     toggleFav,
-    changeSort,
     changeFilter,
+    handleSortToggle,
+    handleSortClear,
   } = usePosts();
-  const [title, setTitle] = useState<string>("");
-  const [body, setBody] = useState<string>("");
-  const [showModal, setShowModal] = useState<boolean>(false);
-  const [showPostModal, setShowPostModal] = useState<boolean>(false);
-  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
 
   const { showScrollTop, scrollToTop } = useInfiniteScroll();
+  useFavoritesSync();
 
   useEffect(() => {
     dispatch(fetchPosts({ page, filter }));
@@ -47,12 +54,8 @@ export default function PostContainer() {
         sort={sort}
         favorites={favorites}
         onFilterChange={changeFilter}
-        onSortToggle={() =>
-          sort === "default"
-            ? changeSort("alphabet")
-            : changeSort(sort === "alphabet" ? "reverse-alphabet" : "alphabet")
-        }
-        onSortClear={() => changeSort("default")}
+        onSortToggle={handleSortToggle}
+        onSortClear={handleSortClear}
         onAddPost={() => setShowModal(true)}
         onFavoriteSelect={(post) => {
           setSelectedPost(post);
@@ -78,7 +81,7 @@ export default function PostContainer() {
         body={body}
         onChangeTitle={setTitle}
         onChangeBody={setBody}
-        onSave={() => addNewPost(title, body)}
+        onSave={() => handleAddPost(title, body)}
         onClose={() => setShowModal(false)}
       />
 

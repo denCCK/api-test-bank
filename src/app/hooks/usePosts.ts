@@ -1,28 +1,36 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
   setSort,
   addPost,
   toggleFavorite,
   setFilter,
+  SortOrder,
 } from "../../features/posts/postSlice";
 import { Post } from "../../features/posts/postTypes";
 
 export function usePosts() {
   const dispatch = useAppDispatch();
-  const { items, favorites, sort, filter } = useAppSelector(
+  const { items, favorites, status, filter, sort, noResults } = useAppSelector(
     (state) => state.posts
   );
 
+  const [title, setTitle] = useState<string>("");
+  const [body, setBody] = useState<string>("");
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showPostModal, setShowPostModal] = useState<boolean>(false);
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+
   const sortedItems = useMemo(() => {
     return [...items].sort((a, b) => {
-      if (sort === "alphabet") return a.title.localeCompare(b.title);
-      if (sort === "reverse-alphabet") return b.title.localeCompare(a.title);
+      if (sort === SortOrder.ALPHABET) return a.title.localeCompare(b.title);
+      if (sort === SortOrder.REVERSE_ALPHABET)
+        return b.title.localeCompare(a.title);
       return 0;
     });
   }, [items, sort]);
 
-  const addNewPost = (title: string, body: string) => {
+  const handleAddPost = (title: string, body: string): void => {
     if (!title.trim() || !body.trim()) return;
     const newPost: Post = {
       id: Date.now(),
@@ -38,19 +46,44 @@ export function usePosts() {
     link.download = `post-${newPost.id}.json`;
     link.click();
   };
+
+  const changeSort = (sort: SortOrder) => dispatch(setSort(sort));
+  const handleSortClear = () => changeSort(SortOrder.DEFAULT);
+  const handleSortToggle = (): void => {
+    sort === SortOrder.DEFAULT
+      ? changeSort(SortOrder.ALPHABET)
+      : changeSort(
+          sort === SortOrder.ALPHABET
+            ? SortOrder.REVERSE_ALPHABET
+            : SortOrder.ALPHABET
+        );
+  };
+
   const toggleFav = (post: Post) => dispatch(toggleFavorite(post));
-  const changeSort = (value: "default" | "alphabet" | "reverse-alphabet") =>
-    dispatch(setSort(value));
-  const changeFilter = (value: string) => dispatch(setFilter(value));
+  const changeFilter = (filter: string) => dispatch(setFilter(filter));
 
   return {
     items: sortedItems,
     favorites,
     sort,
     filter,
-    addNewPost,
+    status,
+    noResults,
+    title,
+    setTitle,
+    body,
+    setBody,
+    selectedPost,
+    setSelectedPost,
+    showModal,
+    setShowModal,
+    showPostModal,
+    setShowPostModal,
+    handleAddPost,
     toggleFav,
     changeSort,
     changeFilter,
+    handleSortToggle,
+    handleSortClear,
   };
 }

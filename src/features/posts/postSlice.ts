@@ -2,13 +2,19 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { PostsState, Post } from "./postTypes";
 import { fetchPosts } from "./postThunks";
 
+export enum SortOrder {
+  DEFAULT = "default",
+  ALPHABET = "alphabet",
+  REVERSE_ALPHABET = "reverse-alphabet",
+}
+
 const initialState: PostsState = {
   items: [],
-  favorites: JSON.parse(localStorage.getItem("favorites") || "[]"),
+  favorites: [],
   status: "idle",
   page: 1,
   filter: "",
-  sort: "default",
+  sort: SortOrder.DEFAULT,
   noResults: false,
 };
 
@@ -21,7 +27,6 @@ const postsSlice = createSlice({
       state.favorites = exists
         ? state.favorites.filter((p) => p.id !== action.payload.id)
         : [...state.favorites, action.payload];
-      localStorage.setItem("favorites", JSON.stringify(state.favorites));
     },
     addPost: (state, action: PayloadAction<Post>) => {
       state.items.unshift(action.payload);
@@ -35,10 +40,7 @@ const postsSlice = createSlice({
       state.items = [];
       state.noResults = false;
     },
-    setSort: (
-      state,
-      action: PayloadAction<"default" | "alphabet" | "reverse-alphabet">
-    ) => {
+    setSort: (state, action: PayloadAction<SortOrder>) => {
       state.sort = action.payload;
     },
   },

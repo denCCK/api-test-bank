@@ -1,4 +1,5 @@
 import { Button, Form } from "react-bootstrap";
+import { SortOrder } from "../postTypes";
 import FavoriteDropdown from "./FavoriteDropdown";
 
 export default function Toolbar({
@@ -20,11 +21,6 @@ export default function Toolbar({
   onAddPost: () => void;
   onFavoriteSelect: (post: any) => void;
 }) {
-  const SortIcon = ({ sort }: { sort: string }) => {
-    if (sort === "reverse-alphabet")
-      return <i className="bi bi-sort-alpha-down-alt icon-lg" />;
-    return <i className="bi bi-sort-alpha-down icon-lg" />;
-  };
 
   return (
     <div className="toolbar border d-flex justify-content-between align-items-center gap-2">
@@ -51,7 +47,7 @@ export default function Toolbar({
           }`}
           onClick={onSortToggle}
         >
-          <SortIcon sort={sort} />
+          <i className={`bi bi-sort-alpha-down${sort === SortOrder.REVERSE_ALPHABET ? "-alt" : ""} icon-lg`}></i>
         </Button>
         {sort !== "default" && (
           <Button

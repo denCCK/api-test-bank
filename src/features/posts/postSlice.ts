@@ -1,20 +1,6 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-
-export interface Post {
-  id: number;
-  title: string;
-  body: string;
-}
-
-interface PostsState {
-  items: Post[];
-  favorites: Post[];
-  status: "idle" | "loading" | "succeeded" | "failed";
-  page: number;
-  filter: string;
-  sort: "default" | "alphabet" | "reverse-alphabet";
-  noResults: boolean;
-}
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { PostsState, Post } from "./postTypes";
+import { fetchPosts } from "./postThunks";
 
 const initialState: PostsState = {
   items: [],
@@ -26,29 +12,15 @@ const initialState: PostsState = {
   noResults: false,
 };
 
-export const fetchPosts = createAsyncThunk(
-  "posts/fetchPosts",
-  async ({ page, filter }: { page: number; filter: string }) => {
-    let url = `https://jsonplaceholder.typicode.com/posts?_limit=10&_page=${page}`;
-    if (filter) url += `&title_like=${encodeURIComponent(filter)}`;
-    const response = await fetch(url);
-    return (await response.json()) as Post[];
-  }
-);
-
 const postsSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {
     toggleFavorite: (state, action: PayloadAction<Post>) => {
       const exists = state.favorites.find((p) => p.id === action.payload.id);
-      if (exists) {
-        state.favorites = state.favorites.filter(
-          (p) => p.id !== action.payload.id
-        );
-      } else {
-        state.favorites.push(action.payload);
-      }
+      state.favorites = exists
+        ? state.favorites.filter((p) => p.id !== action.payload.id)
+        : [...state.favorites, action.payload];
       localStorage.setItem("favorites", JSON.stringify(state.favorites));
     },
     addPost: (state, action: PayloadAction<Post>) => {

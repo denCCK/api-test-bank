@@ -15,7 +15,7 @@
 
 .toolbar {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   gap: 0.5rem;
   position: sticky;
   top: 1rem;
@@ -61,24 +61,10 @@
   text-transform: uppercase;
 }
 
-.post-body {
-  margin: 0;
-}
-
-.favorite-btn {
-  border: none;
-  background: transparent;
-}
-
 .loading {
   display: flex;
   justify-content: center;
   gap: 0.5rem;
-}
-
-.no-results {
-  text-align: center;
-  color: #6c757d;
 }
 
 .scroll-top {

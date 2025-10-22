@@ -10,7 +10,6 @@ React-приложение с использованием TypeScript, Redux и 
 - Node.js >= 20
 - npm >= 9
 - Docker >= 20
-
 ---
 
 ## Запуск

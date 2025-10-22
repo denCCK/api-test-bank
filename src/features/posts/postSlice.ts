@@ -1,17 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { PostsState, Post } from "./postTypes";
+import { PostsState, Post, SortOrder, FetchStatus } from "./postTypes";
 import { fetchPosts } from "./postThunks";
-
-export enum SortOrder {
-  DEFAULT = "default",
-  ALPHABET = "alphabet",
-  REVERSE_ALPHABET = "reverse-alphabet",
-}
 
 const initialState: PostsState = {
   items: [],
   favorites: [],
-  status: "idle",
+  status: FetchStatus.Idle,
   page: 1,
   filter: "",
   sort: SortOrder.DEFAULT,
@@ -47,11 +41,11 @@ const postsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchPosts.pending, (state) => {
-        state.status = "loading";
+        state.status = FetchStatus.Loading;
         state.noResults = false;
       })
       .addCase(fetchPosts.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        state.status = FetchStatus.Succeeded;
         state.items =
           state.page === 1
             ? action.payload
@@ -59,7 +53,7 @@ const postsSlice = createSlice({
         state.noResults = state.items.length === 0;
       })
       .addCase(fetchPosts.rejected, (state) => {
-        state.status = "failed";
+        state.status = FetchStatus.Failed;
       });
   },
 });

@@ -1,3 +1,16 @@
+export enum SortOrder {
+  DEFAULT = "default",
+  ALPHABET = "alphabet",
+  REVERSE_ALPHABET = "reverse-alphabet",
+}
+
+export enum FetchStatus {
+  Idle = "idle",
+  Loading = "loading",
+  Succeeded = "succeeded",
+  Failed = "failed",
+}
+
 export interface Post {
   id: number;
   title: string;
@@ -7,9 +20,9 @@ export interface Post {
 export interface PostsState {
   items: Post[];
   favorites: Post[];
-  status: "idle" | "loading" | "succeeded" | "failed";
+  status: FetchStatus;
   page: number;
   filter: string;
-  sort: "default" | "alphabet" | "reverse-alphabet";
+  sort: SortOrder;
   noResults: boolean;
 }

@@ -11,6 +11,7 @@ import Toolbar from "./Toolbar";
 import { useInfiniteScroll } from "../../../app/hooks/useInfiniteScroll";
 import { usePosts } from "../../../app/hooks/usePosts";
 import { useFavoritesSync } from "../../../app/hooks/useFavoritesSync";
+import { FetchStatus } from "../postTypes";
 
 export default function PostContainer() {
   const dispatch = useAppDispatch();
@@ -44,7 +45,7 @@ export default function PostContainer() {
     dispatch(fetchPosts({ page, filter }));
   }, [dispatch, page, filter]);
 
-  if (status === "failed") return <p>Ошибка загрузки</p>;
+  if (status === FetchStatus.Failed) return <p>Ошибка загрузки</p>;
 
   return (
     <Container className="app-container">
@@ -69,7 +70,7 @@ export default function PostContainer() {
         onToggleFavorite={toggleFav}
       />
 
-      {status === "loading" && <Loader />}
+      {status === FetchStatus.Loading && <Loader />}
 
       {noResults && <p className="text-center text-muted">Ничего не найдено</p>}
 

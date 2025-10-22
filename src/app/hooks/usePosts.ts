@@ -5,9 +5,8 @@ import {
   addPost,
   toggleFavorite,
   setFilter,
-  SortOrder,
 } from "../../features/posts/postSlice";
-import { Post } from "../../features/posts/postTypes";
+import { Post, SortOrder } from "../../features/posts/postTypes";
 
 export function usePosts() {
   const dispatch = useAppDispatch();

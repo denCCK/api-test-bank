@@ -1,5 +1,5 @@
 import { Button, Form } from "react-bootstrap";
-import { SortOrder } from "../postTypes";
+import { Post, SortOrder } from "../postTypes";
 import FavoriteDropdown from "./FavoriteDropdown";
 
 export default function Toolbar({
@@ -19,7 +19,7 @@ export default function Toolbar({
   onSortToggle: () => void;
   onSortClear: () => void;
   onAddPost: () => void;
-  onFavoriteSelect: (post: any) => void;
+  onFavoriteSelect: (post: Post) => void;
 }) {
 
   return (
@@ -43,7 +43,7 @@ export default function Toolbar({
           variant="outline"
           className="p-0 border-0"
           title={`Сортировать по ${
-            sort !== "reverse-alphabet" ? "алфавиту" : "обратному алфавиту"
+            sort !== SortOrder.REVERSE_ALPHABET ? "алфавиту" : "обратному алфавиту"
           }`}
           onClick={onSortToggle}
         >

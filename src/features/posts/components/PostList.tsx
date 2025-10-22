@@ -11,7 +11,7 @@ interface Props {
 export default function PostList({ posts, favorites, onToggleFavorite }: Props) {
   return (
     <ListGroup className="post-list">
-      {posts.map((post, index) => (
+      {posts.map((post) => (
         <PostItem
           key={post.id}
           post={post}

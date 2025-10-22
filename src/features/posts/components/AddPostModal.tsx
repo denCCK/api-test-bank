@@ -4,8 +4,8 @@ interface Props {
   show: boolean;
   title: string;
   body: string;
-  onChangeTitle: (v: string) => void;
-  onChangeBody: (v: string) => void;
+  onChangeTitle: (title: string) => void;
+  onChangeBody: (body: string) => void;
   onSave: () => void;
   onClose: () => void;
 }

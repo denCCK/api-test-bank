@@ -6,7 +6,7 @@ import {
   setFilter,
   setSort,
 } from "../postSlice";
-import { Container, Button, Form, Spinner } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import PostList from "./PostList";
 import AddPostModal from "./AddPostModal";
 import PostModal from "./PostModal";
@@ -21,12 +21,12 @@ export default function PostContainer() {
   const dispatch = useAppDispatch();
   const { items, favorites, status, page, filter, sort, noResults } =
     useAppSelector((state) => state.posts);
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
-  const [showModal, setShowModal] = useState(false);
-  const [showPostModal, setShowPostModal] = useState(false);
-  const [selectedPost, setSelectedPost] = useState<any>(null);
-  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [title, setTitle] = useState<string>("");
+  const [body, setBody] = useState<string>("");
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showPostModal, setShowPostModal] = useState<boolean>(false);
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+  const [showScrollTop, setShowScrollTop] = useState<boolean>(false);
 
   useEffect(() => {
     dispatch(fetchPosts({ page, filter }));
@@ -47,7 +47,7 @@ export default function PostContainer() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
-  const handleAddPost = () => {
+  const handleAddPost = (): void => {
     if (!title.trim() || !body.trim()) return;
     const newPost = { id: Date.now(), title, body };
     dispatch(addPost(newPost));
@@ -55,7 +55,7 @@ export default function PostContainer() {
     setBody("");
   };
 
-  const handleSortToggle = () => {
+  const handleSortToggle = (): void => {
     if (sort === "default") dispatch(setSort("alphabet"));
     else if (sort === "alphabet") dispatch(setSort("reverse-alphabet"));
     else dispatch(setSort("alphabet"));

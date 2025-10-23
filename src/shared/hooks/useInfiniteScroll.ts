@@ -1,6 +1,6 @@
 import { useEffect, useCallback, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { incrementPage } from "../../features/posts/postSlice";
+import { useAppDispatch, useAppSelector } from ".";
+import { incrementPage } from "../../features/posts/model/postSlice";
 
 export function useInfiniteScroll() {
   const dispatch = useAppDispatch();

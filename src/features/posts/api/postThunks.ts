@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { Post } from "./postTypes";
+import { Post } from "../model/postTypes";
 
 export const fetchPosts = createAsyncThunk(
   "posts/fetchPosts",

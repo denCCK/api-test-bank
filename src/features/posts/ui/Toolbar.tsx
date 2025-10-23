@@ -1,5 +1,6 @@
 import { Button, Form } from "react-bootstrap";
-import { Post, SortOrder } from "../postTypes";
+import { SortOrder } from "../../../shared/config/constants";
+import { Post } from "../model/postTypes";
 import FavoriteDropdown from "./FavoriteDropdown";
 
 export default function Toolbar({

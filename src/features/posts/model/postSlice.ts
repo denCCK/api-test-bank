@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { PostsState, Post, SortOrder, FetchStatus } from "./postTypes";
-import { fetchPosts } from "./postThunks";
+import { PostsState, Post } from "./postTypes";
+import { fetchPosts } from "../api/postThunks";
+import { FetchStatus, SortOrder } from "../../../shared/config/constants";
 
 const initialState: PostsState = {
   items: [],

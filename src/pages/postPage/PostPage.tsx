@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
-import PostList from "./PostList";
-import AddPostModal from "./AddPostModal";
-import PostModal from "./PostModal";
-import ScrollToTopButton from "./ScrollToTopButton";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { fetchPosts } from "../postThunks";
-import Loader from "./Loader";
-import Toolbar from "./Toolbar";
-import { useInfiniteScroll } from "../../../app/hooks/useInfiniteScroll";
-import { usePosts } from "../../../app/hooks/usePosts";
-import { useFavoritesSync } from "../../../app/hooks/useFavoritesSync";
-import { FetchStatus } from "../postTypes";
+import PostList from "../../features/posts/ui/PostList";
+import AddPostModal from "../../features/posts/ui/AddPostModal";
+import PostModal from "../../features/posts/ui/PostModal";
+import ScrollToTopButton from "../../features/posts/ui/ScrollToTopButton";
+import { useAppDispatch, useAppSelector } from "../../shared/hooks";
+import { fetchPosts } from "../../features/posts/api/postThunks";
+import Loader from "../../features/posts/ui/Loader";
+import Toolbar from "../../features/posts/ui/Toolbar";
+import { useInfiniteScroll } from "../../shared/hooks/useInfiniteScroll";
+import { usePosts } from "../../shared/hooks/usePosts";
+import { useFavoritesSync } from "../../shared/hooks/useFavoritesSync";
+import { FetchStatus } from "../../shared/config/constants";
 
-export default function PostContainer() {
+export default function PostPage() {
   const dispatch = useAppDispatch();
   const { status, page, noResults } = useAppSelector((state) => state.posts);
   const {

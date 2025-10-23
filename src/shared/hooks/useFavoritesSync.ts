@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks";
-import { toggleFavorite } from "../../features/posts/postSlice";
-import { Post } from "../../features/posts/postTypes";
+import { useAppDispatch, useAppSelector } from ".";
+import { toggleFavorite } from "../../features/posts/model/postSlice";
+import { Post } from "../../features/posts/model/postTypes";
 
 export const useFavoritesSync = () => {
   const dispatch = useAppDispatch();

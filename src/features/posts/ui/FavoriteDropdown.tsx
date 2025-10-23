@@ -1,5 +1,5 @@
 import { Dropdown, Badge } from "react-bootstrap";
-import { Post } from "../postTypes";
+import { Post } from "../model/postTypes";
 
 interface Props {
   favorites: Post[];

@@ -1,12 +1,13 @@
 import { useMemo, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from ".";
 import {
   setSort,
   addPost,
   toggleFavorite,
   setFilter,
-} from "../../features/posts/postSlice";
-import { Post, SortOrder } from "../../features/posts/postTypes";
+} from "../../features/posts/model/postSlice";
+import { Post } from "../../features/posts/model/postTypes";
+import { SortOrder } from "../../shared/config/constants";
 
 export function usePosts() {
   const dispatch = useAppDispatch();

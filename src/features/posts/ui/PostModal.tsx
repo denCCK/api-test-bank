@@ -1,5 +1,5 @@
 import { Modal, Button } from "react-bootstrap";
-import { Post } from "../postTypes";
+import { Post } from "../model/postTypes";
 
 interface Props {
   post: Post | null;

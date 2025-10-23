@@ -1,6 +1,6 @@
 import { ListGroup } from "react-bootstrap";
 import PostItem from "./PostItem";
-import { Post } from "../postTypes";
+import { Post } from "../model/postTypes";
 
 interface Props {
   posts: Post[];
